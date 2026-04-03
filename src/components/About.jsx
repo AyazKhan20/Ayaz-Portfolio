@@ -3,16 +3,16 @@ import { useRef } from 'react'
 import { Code2, Palette, Cloud, Zap } from 'lucide-react'
 
 const stats = [
-  { value: '3+', label: 'Years Experience' },
-  { value: '50+', label: 'Projects Built' },
-  { value: '20+', label: 'Happy Clients' },
-  { value: '99%', label: 'Satisfaction' },
+  { value: '6+', label: 'Months Experience' },
+  { value: '5+', label: 'Projects Built' },
+  { value: '20+', label: 'Events Participated' },
+  { value: '100%', label: 'Accuracy & Consistency' },
 ]
 
 const services = [
-  { icon: Code2, title: 'Full-Stack Dev', desc: 'End-to-end web apps with React, Node.js & databases' },
-  { icon: Palette, title: 'UI/UX Design', desc: 'Pixel-perfect interfaces with Figma & modern CSS' },
-  { icon: Cloud, title: 'Cloud & DevOps', desc: 'AWS, Docker, CI/CD pipelines & infrastructure' },
+  { icon: Code2, title: 'Full-Stack .NET Dev', desc: 'Building scalable applications with C#, ASP.NET Core, and modern web technologies' },
+  { icon: Palette, title: 'D365 Development', desc: 'Custom solutions for Microsoft Dynamics 365' },
+  { icon: Cloud, title: 'Power Platform', desc: 'Building automated workflows with Power Automate and Power Apps' },
   { icon: Zap, title: 'Performance', desc: 'Optimized, fast & accessible web experiences' },
 ]
 
@@ -61,7 +61,7 @@ export default function About() {
               </div>
               <div style={{ marginLeft: '1.25rem' }}>
                 <p style={{ fontFamily: 'Space Grotesk', fontWeight: 700, fontSize: '1.1rem' }}>Ayaz Khan</p>
-                <p style={{ color: 'var(--muted)', fontSize: '0.8rem', marginTop: '0.2rem' }}>Full-Stack Developer</p>
+                <p style={{ color: 'var(--muted)', fontSize: '0.8rem', marginTop: '0.2rem' }}>Full-Stack .NET Developer</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.5rem' }}>
                   <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#4ade80', display: 'inline-block' }} />
                   <span style={{ fontSize: '0.72rem', color: '#4ade80' }}>Open to opportunities</span>

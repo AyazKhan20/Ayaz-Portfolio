@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowDown, GitBranch, Link, X as XIcon, Sparkles } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
-const roles = ['Full-Stack Developer', 'UI/UX Enthusiast', 'Open Source Contributor', 'Cloud Architect']
+const roles = ['Full-Stack .NET Developer', 'D365 Developer', 'Open Source Contributor', 'Tech Enthusiast','Power Platform Developer', 'Cloud Solutions Architect','Azure DevOps ']
 
 const socials = [
   { icon: GitBranch, href: 'https://github.com', label: 'GitHub' },
