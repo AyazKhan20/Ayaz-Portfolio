@@ -43,7 +43,7 @@ export default function Hero() {
 
         <motion.h1 {...fadeUp(0.2)} className="hero-title">
           Hi, I'm{' '}
-          <span className="gradient-text name-glow">Ayaz</span>
+          <span className="gradient-text name-glow">Ayaz khan</span>
         </motion.h1>
 
         {/* Animated role */}
