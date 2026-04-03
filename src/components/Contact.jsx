@@ -1,6 +1,12 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
-import { Mail, MapPin, Send } from 'lucide-react'
+import { Mail, MapPin, Send, GitBranch, Link, X as XIcon, Clock } from 'lucide-react'
+
+const socials = [
+  { icon: GitBranch, href: 'https://github.com', label: 'GitHub' },
+  { icon: Link, href: 'https://linkedin.com', label: 'LinkedIn' },
+  { icon: XIcon, href: 'https://twitter.com', label: 'Twitter' },
+]
 
 export default function Contact() {
   const ref = useRef(null)
@@ -40,6 +46,7 @@ export default function Contact() {
             {[
               { icon: Mail, label: 'Email', value: 'ayaz@example.com' },
               { icon: MapPin, label: 'Location', value: 'Available Worldwide' },
+              { icon: Clock, label: 'Response Time', value: 'Within 24 hours' },
             ].map(({ icon: Icon, label, value }) => (
               <div key={label} className="contact-info-item">
                 <div className="contact-icon glass"><Icon size={18} /></div>
@@ -49,9 +56,20 @@ export default function Contact() {
                 </div>
               </div>
             ))}
-            <div className="contact-note glass">
-              <p>Response Time</p>
-              <p>I typically respond within 24 hours. For urgent projects, feel free to reach out directly via email.</p>
+
+            {/* Social links */}
+            <div className="contact-socials glass">
+              <p style={{ fontSize: '0.75rem', color: 'var(--muted)', fontWeight: 600, marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                Find me on
+              </p>
+              <div style={{ display: 'flex', gap: '0.75rem' }}>
+                {socials.map(({ icon: Icon, href, label }) => (
+                  <a key={label} href={href} target="_blank" rel="noreferrer" className="social-icon glass" aria-label={label}
+                    style={{ width: 44, height: 44 }}>
+                    <Icon size={16} />
+                  </a>
+                ))}
+              </div>
             </div>
           </motion.div>
 
@@ -62,11 +80,17 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.2 }}
             onSubmit={handleSubmit}
           >
-            <input className="form-input" type="text" placeholder="Your Name" required />
-            <input className="form-input" type="email" placeholder="Your Email" required />
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <input className="form-input" type="text" placeholder="Your Name" required />
+              <input className="form-input" type="email" placeholder="Your Email" required />
+            </div>
+            <input className="form-input" type="text" placeholder="Subject" />
             <textarea className="form-input" placeholder="Your Message" rows={5} required style={{ resize: 'none' }} />
             <button type="submit" className="form-submit">
-              {sent ? '✓ Message Sent!' : <><Send size={15} /> Send Message</>}
+              {sent
+                ? <><span>✓</span> Message Sent!</>
+                : <><Send size={15} /> Send Message</>
+              }
             </button>
           </motion.form>
         </div>
