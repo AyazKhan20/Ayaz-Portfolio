@@ -18,6 +18,18 @@ const fadeUp = (delay = 0) => ({
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0)
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePos({
+        x: (e.clientX / window.innerWidth - 0.5) * 20,
+        y: (e.clientY / window.innerHeight - 0.5) * 20,
+      })
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
 
   useEffect(() => {
     const t = setInterval(() => setRoleIndex(i => (i + 1) % roles.length), 2800)
@@ -26,13 +38,70 @@ export default function Hero() {
 
   return (
     <section className="hero">
-      {/* Orbs */}
-      <div className="orb" style={{ width: 600, height: 600, top: '-10%', left: '-10%', background: 'radial-gradient(circle, rgba(124,58,237,0.2), transparent 65%)' }} />
-      <div className="orb" style={{ width: 500, height: 500, bottom: '-10%', right: '-10%', background: 'radial-gradient(circle, rgba(6,182,212,0.18), transparent 65%)' }} />
-      <div className="orb" style={{ width: 350, height: 350, top: '40%', left: '55%', background: 'radial-gradient(circle, rgba(244,114,182,0.1), transparent 65%)' }} />
+      {/* Dynamic Background Orbs */}
+      <motion.div 
+        animate={{ 
+          x: mousePos.x * 2, 
+          y: mousePos.y * 2,
+          scale: [1, 1.1, 1]
+        }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        className="orb" 
+        style={{ width: 600, height: 600, top: '-10%', left: '-10%', background: 'radial-gradient(circle, rgba(124,58,237,0.2), transparent 65%)' }} 
+      />
+      <motion.div 
+        animate={{ 
+          x: -mousePos.x * 1.5, 
+          y: -mousePos.y * 1.5,
+          scale: [1, 1.2, 1]
+        }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        className="orb" 
+        style={{ width: 500, height: 500, bottom: '-10%', right: '-10%', background: 'radial-gradient(circle, rgba(6,182,212,0.18), transparent 65%)' }} 
+      />
+      <motion.div 
+        animate={{ 
+          x: mousePos.x, 
+          y: -mousePos.y,
+          scale: [1, 1.15, 1]
+        }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        className="orb" 
+        style={{ width: 350, height: 350, top: '40%', left: '55%', background: 'radial-gradient(circle, rgba(244,114,182,0.1), transparent 65%)' }} 
+      />
 
-      {/* Grid lines */}
-      <div className="hero-grid" />
+      {/* Floating Particles */}
+      <div className="particles-container">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="particle"
+            animate={{
+              y: [0, -100, 0],
+              x: [0, Math.random() * 50 - 25, 0],
+              opacity: [0, 0.5, 0],
+            }}
+            transition={{
+              duration: Math.random() * 5 + 5,
+              repeat: Infinity,
+              delay: Math.random() * 10,
+            }}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: `${Math.random() * 4 + 2}px`,
+              height: `${Math.random() * 4 + 2}px`,
+              background: i % 2 === 0 ? 'var(--accent)' : 'var(--accent2)',
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Grid lines with parallax */}
+      <motion.div 
+        style={{ x: mousePos.x * 0.5, y: mousePos.y * 0.5 }}
+        className="hero-grid" 
+      />
 
       <div className="hero-content">
         <motion.div {...fadeUp(0.1)} className="hero-badge glass">
