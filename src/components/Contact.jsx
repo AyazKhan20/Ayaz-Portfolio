@@ -1,98 +1,131 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
-import { Mail, MapPin, Send, GitBranch, Link, X as XIcon, Clock } from 'lucide-react'
+import { Mail, MapPin, Send, Clock, ArrowUpRight } from 'lucide-react'
 
-const socials = [
-  { icon: GitBranch, href: 'https://github.com', label: 'GitHub' },
-  { icon: Link, href: 'https://linkedin.com', label: 'LinkedIn' },
-  { icon: XIcon, href: 'https://twitter.com', label: 'Twitter' },
+const contactInfo = [
+  { icon: Mail,   label: 'Email',         value: 'ayazkhan@example.com', href: 'mailto:ayazkhan@example.com' },
+  { icon: MapPin, label: 'Location',      value: 'Available Worldwide',  href: null },
+  { icon: Clock,  label: 'Response Time', value: 'Within 24 hours',      href: null },
 ]
 
 export default function Contact() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const [sent, setSent] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setSent(true)
-    setTimeout(() => setSent(false), 3000)
+    setLoading(true)
+    setTimeout(() => { setLoading(false); setSent(true) }, 1200)
+    setTimeout(() => setSent(false), 4000)
   }
 
   return (
     <section id="contact" className="section section-alt" ref={ref}>
       <div className="container">
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          style={{ textAlign: 'center' }}
+          style={{ textAlign: 'center', marginBottom: '3.5rem' }}
         >
           <p className="section-label">Contact</p>
           <h2 className="section-title">
             Let's <span className="gradient-text">Work Together</span>
           </h2>
-          <p style={{ color: 'var(--muted)', marginTop: '0.75rem', fontSize: '0.95rem' }}>
-            Have a project in mind? I'd love to hear about it.
+          <p style={{ color: 'var(--muted)', marginTop: '0.75rem', fontSize: '0.9rem' }}>
+            Have a project in mind? Let's build something great.
           </p>
         </motion.div>
 
         <div className="contact-grid">
+
+          {/* Left */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
           >
-            {[
-              { icon: Mail, label: 'Email', value: 'ayaz@example.com' },
-              { icon: MapPin, label: 'Location', value: 'Available Worldwide' },
-              { icon: Clock, label: 'Response Time', value: 'Within 24 hours' },
-            ].map(({ icon: Icon, label, value }) => (
+            {/* Availability card */}
+            <div className="availability-card glass">
+              <div className="avail-pulse" />
+              <div>
+                <p style={{ fontWeight: 700, fontSize: '0.95rem', marginBottom: '0.3rem' }}>Currently Available</p>
+                <p style={{ color: 'var(--muted)', fontSize: '0.8rem', lineHeight: 1.6 }}>
+                  Open to full-time roles, freelance projects, and consulting opportunities in .NET, D365, and Azure.
+                </p>
+              </div>
+            </div>
+
+            {/* Info items */}
+            {contactInfo.map(({ icon: Icon, label, value, href }) => (
               <div key={label} className="contact-info-item">
-                <div className="contact-icon glass"><Icon size={18} /></div>
+                <div className="contact-icon glass"><Icon size={17} /></div>
                 <div>
                   <p className="contact-label">{label}</p>
-                  <p className="contact-value">{value}</p>
+                  {href
+                    ? <a href={href} className="contact-value" style={{ textDecoration: 'none', color: 'var(--text)' }}>{value}</a>
+                    : <p className="contact-value">{value}</p>
+                  }
                 </div>
               </div>
             ))}
 
-            {/* Social links */}
-            <div className="contact-socials glass">
-              <p style={{ fontSize: '0.75rem', color: 'var(--muted)', fontWeight: 600, marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                Find me on
+            {/* Social row */}
+            <div className="contact-socials-row glass">
+              <p style={{ fontSize: '0.7rem', color: 'var(--muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '0.75rem' }}>
+                Connect with me
               </p>
-              <div style={{ display: 'flex', gap: '0.75rem' }}>
-                {socials.map(({ icon: Icon, href, label }) => (
-                  <a key={label} href={href} target="_blank" rel="noreferrer" className="social-icon glass" aria-label={label}
-                    style={{ width: 44, height: 44 }}>
-                    <Icon size={16} />
+              <div style={{ display: 'flex', gap: '0.6rem' }}>
+                {[
+                  { label: 'GitHub',   href: 'https://github.com/AyazKhan20' },
+                  { label: 'LinkedIn', href: 'https://linkedin.com' },
+                  { label: 'Twitter',  href: 'https://twitter.com' },
+                ].map(({ label, href }) => (
+                  <a key={label} href={href} target="_blank" rel="noreferrer" className="social-pill glass">
+                    {label} <ArrowUpRight size={11} />
                   </a>
                 ))}
               </div>
             </div>
           </motion.div>
 
+          {/* Form */}
           <motion.form
-            className="form"
+            className="contact-form glass"
             initial={{ opacity: 0, x: 30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
             onSubmit={handleSubmit}
           >
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-              <input className="form-input" type="text" placeholder="Your Name" required />
-              <input className="form-input" type="email" placeholder="Your Email" required />
+            <div className="form-row">
+              <div className="form-group">
+                <label className="form-label">Name</label>
+                <input className="form-input" type="text" placeholder="Ayaz Khan" required />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Email</label>
+                <input className="form-input" type="email" placeholder="ayaz@example.com" required />
+              </div>
             </div>
-            <input className="form-input" type="text" placeholder="Subject" />
-            <textarea className="form-input" placeholder="Your Message" rows={5} required style={{ resize: 'none' }} />
-            <button type="submit" className="form-submit">
-              {sent
-                ? <><span>✓</span> Message Sent!</>
-                : <><Send size={15} /> Send Message</>
-              }
+            <div className="form-group">
+              <label className="form-label">Subject</label>
+              <input className="form-input" type="text" placeholder="Project Inquiry" />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Message</label>
+              <textarea className="form-input" placeholder="Tell me about your project..." rows={5} required style={{ resize: 'none' }} />
+            </div>
+            <button type="submit" className="form-submit" disabled={loading || sent}>
+              {sent    ? <><span>✓</span> Message Sent!</>
+               : loading ? <><span className="form-spinner" /> Sending...</>
+               : <><Send size={14} /> Send Message</>}
             </button>
           </motion.form>
+
         </div>
       </div>
     </section>
