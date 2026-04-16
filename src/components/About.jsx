@@ -106,46 +106,6 @@ export default function About() {
 
         </div>
 
-        {/* Testimonials */}
-        <div style={{ marginTop: '7rem' }}>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            style={{ textAlign: 'center', marginBottom: '3.5rem' }}
-          >
-            <p className="section-label" style={{ color: '#f472b6' }}>Testimonials</p>
-            <h2 className="section-title">
-              What <span className="gradient-text">Partners Say</span>
-            </h2>
-          </motion.div>
-
-          <div className="testimonials-grid">
-            {[
-              { name: 'Saira J.', role: 'Product Manager', text: 'Ayaz is an exceptional developer who delivered our project ahead of schedule. His attention to detail and problem solving is impressive.', star: 5, avatar: 'SJ', color: 'var(--accent)' },
-              { name: 'Hamza K.', role: 'Tech Lead', text: 'Working with him on D365 integrations was a game-changer. He understands the core business logic and translates it perfectly.', star: 5, avatar: 'HK', color: 'var(--accent2)' },
-              { name: 'Emily R.', role: 'Entrepreneur', text: 'Great communication and technical skills. He turned my vision into a reality smoothly. Highly recommend for any .NET work.', star: 5, avatar: 'ER', color: '#f472b6' },
-            ].map((t, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={inView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
-                className="testi-card glass"
-              >
-                <p className="testi-text">"{t.text}"</p>
-                <div className="testi-user">
-                  <div className="testi-avatar glass" style={{ background: t.color }}>{t.avatar}</div>
-                  <div>
-                    <p className="testi-name">{t.name}</p>
-                    <p className="testi-role">{t.role}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
         {/* Services */}
         <div className="services-grid" style={{ marginTop: '7rem' }}>
           {services.map(({ icon: Icon, title, desc, color }, i) => (
