@@ -1,4 +1,4 @@
-import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion'
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { ArrowDown, GitBranch, Linkedin, Twitter, Sparkles, Download } from 'lucide-react'
 import { useEffect, useState, useRef } from 'react'
 
@@ -25,17 +25,42 @@ const floatingSnippets = [
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0)
-  const cursorX = useMotionValue(0)
-  const cursorY = useMotionValue(0)
-  const springX = useSpring(cursorX, { stiffness: 80, damping: 20 })
-  const springY = useSpring(cursorY, { stiffness: 80, damping: 20 })
+  const parallaxX = useMotionValue(0)
+  const parallaxY = useMotionValue(0)
+  const springX = useSpring(parallaxX, { stiffness: 70, damping: 18 })
+  const springY = useSpring(parallaxY, { stiffness: 70, damping: 18 })
+  const contentX = useTransform(springX, [-0.5, 0.5], [-18, 18])
+  const contentY = useTransform(springY, [-0.5, 0.5], [-14, 14])
+  const rotateX = useTransform(springY, [-0.5, 0.5], [8, -8])
+  const rotateY = useTransform(springX, [-0.5, 0.5], [-10, 10])
   const heroRef = useRef(null)
 
   useEffect(() => {
-    const move = (e) => { cursorX.set(e.clientX - 12); cursorY.set(e.clientY - 12) }
-    window.addEventListener('mousemove', move)
-    return () => window.removeEventListener('mousemove', move)
-  }, [])
+    const move = (event) => {
+      const rect = heroRef.current?.getBoundingClientRect()
+      if (!rect) return
+
+      const normalizedX = (event.clientX - rect.left) / rect.width - 0.5
+      const normalizedY = (event.clientY - rect.top) / rect.height - 0.5
+
+      parallaxX.set(normalizedX)
+      parallaxY.set(normalizedY)
+    }
+
+    const reset = () => {
+      parallaxX.set(0)
+      parallaxY.set(0)
+    }
+
+    const heroElement = heroRef.current
+    heroElement?.addEventListener('pointermove', move)
+    heroElement?.addEventListener('pointerleave', reset)
+
+    return () => {
+      heroElement?.removeEventListener('pointermove', move)
+      heroElement?.removeEventListener('pointerleave', reset)
+    }
+  }, [parallaxX, parallaxY])
 
   useEffect(() => {
     const t = setInterval(() => setRoleIndex(i => (i + 1) % roles.length), 2800)
@@ -43,9 +68,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="hero" ref={heroRef}>
-      {/* Custom cursor */}
-      <motion.div className="custom-cursor" style={{ x: springX, y: springY }} />
+    <motion.section className="hero" ref={heroRef} style={{ perspective: 1400 }}>
 
       {/* Orbs */}
       <div className="orb" style={{ width: 700, height: 700, top: '-15%', left: '-15%', background: 'radial-gradient(circle, rgba(124,58,237,0.18), transparent 65%)' }} />
@@ -69,7 +92,7 @@ export default function Hero() {
         </motion.div>
       ))}
 
-      <div className="hero-content">
+      <motion.div className="hero-content" style={{ x: contentX, y: contentY, rotateX, rotateY, transformStyle: 'preserve-3d' }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -151,7 +174,7 @@ export default function Hero() {
             </a>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -166,6 +189,6 @@ export default function Hero() {
           <ArrowDown size={16} />
         </motion.div>
       </motion.div>
-    </section>
+    </motion.section>
   )
 }

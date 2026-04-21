@@ -23,6 +23,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: linear-gradient(#7c3aed, #06b6d4); border-radius: 2px; }
@@ -188,6 +194,34 @@ body {
   justify-content: center;
   overflow: hidden;
   background: var(--bg);
+  perspective: 1400px;
+}
+
+.mouse-spotlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(28px);
+  will-change: transform;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.mouse-spotlight-primary {
+  width: 42rem;
+  height: 42rem;
+  opacity: 0.45;
+  background: radial-gradient(circle, rgba(124,58,237,0.22), rgba(124,58,237,0.08) 32%, transparent 70%);
+}
+
+.mouse-spotlight-secondary {
+  width: 28rem;
+  height: 28rem;
+  opacity: 0.35;
+  background: radial-gradient(circle, rgba(6,182,212,0.2), rgba(6,182,212,0.06) 35%, transparent 72%);
 }
 
 .orb {
@@ -228,6 +262,7 @@ body {
   margin: 0 auto;
   padding: 6rem 1.5rem 0;
   text-align: center;
+  will-change: transform;
 }
 .hero-badge {
   display: inline-flex;
@@ -292,6 +327,61 @@ body {
   justify-content: center;
   gap: 0.75rem;
   padding-bottom: 4rem;
+}
+
+.floating-snippet {
+  position: absolute;
+  z-index: 6;
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 0.95rem;
+  border-radius: 9999px;
+  color: var(--text);
+  font-size: 0.72rem;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+}
+
+.snippet-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #06b6d4);
+  box-shadow: 0 0 10px rgba(124,58,237,0.45);
+  flex: 0 0 auto;
+}
+
+@media (max-width: 768px) {
+  .mouse-spotlight-primary {
+    width: 22rem;
+    height: 22rem;
+    opacity: 0.3;
+  }
+
+  .mouse-spotlight-secondary {
+    width: 16rem;
+    height: 16rem;
+    opacity: 0.22;
+  }
+
+  .floating-snippet {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mouse-spotlight,
+  .floating-snippet {
+    display: none;
+  }
+
+  .hero-content {
+    transform: none !important;
+    will-change: auto;
+  }
 }
 .social-icon {
   width: 40px; height: 40px;
