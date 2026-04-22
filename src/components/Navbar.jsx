@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import { profile } from '../data/resumeData'
 
-const links = ['About', 'Skills', 'Projects', 'Contact']
+const links = ['About', 'Experience', 'Skills', 'Projects', 'Contact']
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -28,14 +29,14 @@ export default function Navbar() {
     >
       <div className="nav-inner">
         <button className="nav-logo gradient-text" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          ayaz.dev
+          {profile.brand}
         </button>
 
         <div className="nav-links">
           {links.map(l => (
             <button key={l} className="nav-link" onClick={() => scrollTo(l)}>{l}</button>
           ))}
-          <button className="nav-hire" onClick={() => scrollTo('Contact')}>Hire Me</button>
+          <button className="nav-hire" onClick={() => scrollTo('Contact')}>Let's Connect</button>
         </div>
 
         <button className="nav-mobile-btn" onClick={() => setOpen(!open)}>

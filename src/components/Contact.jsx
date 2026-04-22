@@ -1,10 +1,11 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { Mail, MapPin, Send, Clock, ArrowUpRight } from 'lucide-react'
+import { profile } from '../data/resumeData'
 
 const contactInfo = [
-  { icon: Mail,   label: 'Email',         value: 'ayazkhan@example.com', href: 'mailto:ayazkhan@example.com' },
-  { icon: MapPin, label: 'Location',      value: 'Available Worldwide',  href: null },
+  { icon: Mail, label: 'Email', value: profile.email, href: `mailto:${profile.email}` },
+  { icon: MapPin, label: 'Location', value: profile.location, href: null },
   { icon: Clock,  label: 'Response Time', value: 'Within 24 hours',      href: null },
 ]
 
@@ -12,13 +13,27 @@ export default function Contact() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const [sent, setSent] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' })
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setLoading(true)
-    setTimeout(() => { setLoading(false); setSent(true) }, 1200)
+    const subject = formData.subject || `Portfolio inquiry from ${formData.name}`
+    const body = [
+      `Name: ${formData.name}`,
+      `Email: ${formData.email}`,
+      '',
+      'Message:',
+      formData.message,
+    ].join('\n')
+
+    window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
     setTimeout(() => setSent(false), 4000)
+    setSent(true)
+  }
+
+  const onChange = (event) => {
+    const { name, value } = event.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
   return (
@@ -55,7 +70,7 @@ export default function Contact() {
               <div>
                 <p style={{ fontWeight: 700, fontSize: '0.95rem', marginBottom: '0.3rem' }}>Currently Available</p>
                 <p style={{ color: 'var(--muted)', fontSize: '0.8rem', lineHeight: 1.6 }}>
-                  Open to full-time roles, freelance projects, and consulting opportunities in .NET, D365, and Azure.
+                  Open to entry-level software engineering roles, internship opportunities, and project collaborations.
                 </p>
               </div>
             </div>
@@ -81,9 +96,9 @@ export default function Contact() {
               </p>
               <div style={{ display: 'flex', gap: '0.6rem' }}>
                 {[
-                  { label: 'GitHub',   href: 'https://github.com/AyazKhan20' },
-                  { label: 'LinkedIn', href: 'https://linkedin.com' },
-                  { label: 'Twitter',  href: 'https://twitter.com' },
+                  { label: 'GitHub', href: profile.github },
+                  { label: 'LinkedIn', href: profile.linkedin },
+                  { label: 'Email', href: `mailto:${profile.email}` },
                 ].map(({ label, href }) => (
                   <a key={label} href={href} target="_blank" rel="noreferrer" className="social-pill glass">
                     {label} <ArrowUpRight size={11} />
@@ -104,25 +119,23 @@ export default function Contact() {
             <div className="form-row">
               <div className="form-group">
                 <label className="form-label">Name</label>
-                <input className="form-input" type="text" placeholder="Ayaz Khan" required />
+                <input className="form-input" type="text" name="name" placeholder="Your name" value={formData.name} onChange={onChange} required />
               </div>
               <div className="form-group">
                 <label className="form-label">Email</label>
-                <input className="form-input" type="email" placeholder="ayaz@example.com" required />
+                <input className="form-input" type="email" name="email" placeholder="your-email@example.com" value={formData.email} onChange={onChange} required />
               </div>
             </div>
             <div className="form-group">
               <label className="form-label">Subject</label>
-              <input className="form-input" type="text" placeholder="Project Inquiry" />
+              <input className="form-input" type="text" name="subject" placeholder="Project inquiry" value={formData.subject} onChange={onChange} />
             </div>
             <div className="form-group">
               <label className="form-label">Message</label>
-              <textarea className="form-input" placeholder="Tell me about your project..." rows={5} required style={{ resize: 'none' }} />
+              <textarea className="form-input" name="message" placeholder="Tell me about your project..." value={formData.message} onChange={onChange} rows={5} required style={{ resize: 'none' }} />
             </div>
-            <button type="submit" className="form-submit" disabled={loading || sent}>
-              {sent    ? <><span>✓</span> Message Sent!</>
-               : loading ? <><span className="form-spinner" /> Sending...</>
-               : <><Send size={14} /> Send Message</>}
+            <button type="submit" className="form-submit" disabled={sent}>
+              {sent ? <><span>✓</span> Email Draft Opened</> : <><Send size={14} /> Send Message</>}
             </button>
           </motion.form>
 

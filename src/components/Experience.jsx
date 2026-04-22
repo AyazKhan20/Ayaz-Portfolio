@@ -1,45 +1,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Calendar, Briefcase, GraduationCap, ChevronRight } from 'lucide-react'
-
-const experience = [
-  {
-    company: 'Microsoft Dynamics 365 Partner',
-    role: 'Associate Software Engineer',
-    period: '2023 - Present',
-    desc: 'Developing custom solutions for D365, building Power Platform applications, and integrating Azure services to streamline business processes.',
-    skills: ['C#', '.NET', 'D365', 'Power Platform', 'Azure'],
-  },
-  {
-    company: 'Tech Solutions Ltd',
-    role: 'Full-Stack Developer Intern',
-    period: '2022 - 2023',
-    desc: 'Built internal tools using React and ASP.NET Core. Optimized database queries which improved application performance by 30%.',
-    skills: ['React', 'ASP.NET Core', 'SQL Server', 'Git'],
-  },
-  {
-    company: 'Open Source Community',
-    role: 'Contributor',
-    period: '2021 - Present',
-    desc: 'Contributing to various .NET and React-based repositories. Focused on improving documentation and fixing UI/UX bugs in developer tools.',
-    skills: ['JavaScript', 'GitHub', 'CI/CD', 'Documentation'],
-  },
-]
-
-const education = [
-  {
-    degree: 'Bachelor of Science in Computer Science',
-    school: 'Technical University',
-    period: '2019 - 2023',
-    desc: 'Graduated with Honors. Specialized in Software Engineering and Cloud Computing.',
-  },
-  {
-    degree: 'Microsoft Certified: Power Platform Fundamentals',
-    school: 'Microsoft Certification',
-    period: '2024',
-    desc: 'Verified expertise in Power Apps, Power Automate, and Power BI.',
-  },
-]
+import { Calendar, Briefcase, GraduationCap } from 'lucide-react'
+import { education, experience } from '../data/resumeData'
 
 export default function Experience() {
   const ref = useRef(null)
@@ -102,7 +64,7 @@ export default function Experience() {
             <div className="timeline-items">
               {education.map((item, i) => (
                 <motion.div
-                  key={i}
+                  key={item.degree}
                   initial={{ opacity: 0, x: 30 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
@@ -114,7 +76,8 @@ export default function Experience() {
                   </div>
                   <h4 className="timeline-title">{item.degree}</h4>
                   <p className="timeline-subtitle">{item.school}</p>
-                  <p className="timeline-desc">{item.desc}</p>
+                  <p className="timeline-desc">{item.college || item.detail}</p>
+                  {item.college && <p className="timeline-desc" style={{ marginBottom: 0 }}>{item.detail}</p>}
                 </motion.div>
               ))}
             </div>

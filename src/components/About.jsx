@@ -1,19 +1,20 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Code2, Cpu, Cloud, Zap, Award, Users, Briefcase, Target } from 'lucide-react'
+import { Code2, Rocket, Award, Users, Briefcase, Target } from 'lucide-react'
+import { profile, quickStats, awards } from '../data/resumeData'
 
 const stats = [
-  { value: '6+', label: 'Months Exp.', icon: Briefcase, color: '#a78bfa' },
-  { value: '5+', label: 'Projects', icon: Code2, color: '#06b6d4' },
-  { value: '20+', label: 'Events', icon: Users, color: '#f472b6' },
-  { value: '100%', label: 'Dedication', icon: Target, color: '#4ade80' },
+  { value: quickStats[1].value, label: quickStats[1].label, icon: Code2, color: '#a78bfa' },
+  { value: quickStats[2].value, label: quickStats[2].label, icon: Briefcase, color: '#06b6d4' },
+  { value: quickStats[3].value, label: quickStats[3].label, icon: Users, color: '#f472b6' },
+  { value: '100%', label: 'Learning Focus', icon: Target, color: '#4ade80' },
 ]
 
 const services = [
-  { icon: Code2, title: 'Full-Stack .NET', desc: 'Scalable apps with C#, ASP.NET Core & modern web tech', color: '#a78bfa' },
-  { icon: Cpu,   title: 'D365 Development', desc: 'Custom Dynamics 365 solutions & CRM integrations', color: '#06b6d4' },
-  { icon: Cloud, title: 'Power Platform', desc: 'Power Automate, Power Apps & Power BI dashboards', color: '#f472b6' },
-  { icon: Zap,   title: 'Azure & DevOps', desc: 'Cloud deployments, CI/CD pipelines & infrastructure', color: '#4ade80' },
+  { icon: Code2, title: 'ASP.NET Core MVC', desc: 'Builds secure, scalable web applications with clean architecture and maintainable C# code.', color: '#a78bfa' },
+  { icon: Rocket, title: 'MERN Development', desc: 'Ships React-based SPAs with Express APIs and MongoDB-backed data models.', color: '#06b6d4' },
+  { icon: Award, title: 'Academic Projects', desc: 'Turns semester projects into practical products with real user workflows.', color: '#f472b6' },
+  { icon: Briefcase, title: 'Internship Delivery', desc: 'Hands-on collaboration experience with UI implementation and backend coordination.', color: '#4ade80' },
 ]
 
 export default function About() {
@@ -54,7 +55,7 @@ export default function About() {
               </div>
               <div>
                 <h3 style={{ fontFamily: 'Space Grotesk', fontWeight: 800, fontSize: '1.2rem' }}>Ayaz Khan</h3>
-                <p style={{ color: 'var(--accent2)', fontSize: '0.8rem', marginTop: '0.2rem' }}>Full-Stack .NET Developer</p>
+                <p style={{ color: 'var(--accent2)', fontSize: '0.8rem', marginTop: '0.2rem' }}>{profile.title}</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.4rem' }}>
                   <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#4ade80', boxShadow: '0 0 6px #4ade80', display: 'inline-block' }} />
                   <span style={{ fontSize: '0.7rem', color: '#4ade80' }}>Open to opportunities</span>
@@ -62,12 +63,12 @@ export default function About() {
               </div>
             </div>
             <p className="about-text" style={{ marginTop: '1.5rem' }}>
-              I'm a passionate developer specializing in Microsoft technologies — building scalable .NET applications, customizing Dynamics 365, and architecting cloud solutions on Azure.
+              {profile.summary}
             </p>
             <p className="about-text">
-              I thrive at the intersection of business logic and clean code, turning complex requirements into elegant, maintainable solutions that actually work in production.
+              My current focus is building production-ready applications, improving system design skills, and growing from internship and academic project work into a strong software engineering career.
             </p>
-            <a href="/resume.pdf" className="grad-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', textDecoration: 'none', marginTop: '1.5rem', fontSize: '0.82rem', padding: '0.7rem 1.5rem' }}>
+            <a href={profile.resumeUrl} className="grad-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', textDecoration: 'none', marginTop: '1.5rem', fontSize: '0.82rem', padding: '0.7rem 1.5rem' }} target="_blank" rel="noreferrer">
               Download Resume
             </a>
           </motion.div>
@@ -99,9 +100,9 @@ export default function About() {
           >
             <span style={{ fontSize: '3rem', lineHeight: 1, color: 'var(--accent)', opacity: 0.4, fontFamily: 'Georgia' }}>"</span>
             <p style={{ fontSize: '0.9rem', lineHeight: 1.7, color: 'var(--muted)', marginTop: '-0.5rem' }}>
-              Code is not just instructions for machines — it's a craft, a form of expression, and a way to solve real human problems.
+              {awards[0].title} at {awards[0].org}. This achievement reflects my consistency in learning, problem-solving, and performing under pressure.
             </p>
-            <p style={{ fontSize: '0.72rem', color: 'var(--accent2)', marginTop: '1rem', fontWeight: 600 }}>— Ayaz Khan</p>
+            <p style={{ fontSize: '0.72rem', color: 'var(--accent2)', marginTop: '1rem', fontWeight: 600 }}>{awards[0].date}</p>
           </motion.div>
 
         </div>

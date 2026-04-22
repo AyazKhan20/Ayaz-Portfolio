@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
 import { Heart, ArrowUp } from 'lucide-react'
+import { profile } from '../data/resumeData'
 
-const links = ['About', 'Skills', 'Projects', 'Contact']
+const links = ['About', 'Experience', 'Skills', 'Projects', 'Contact']
 
 export default function Footer() {
   const scrollTo = (id) => document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })
@@ -19,10 +20,10 @@ export default function Footer() {
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'Space Grotesk', fontWeight: 800, fontSize: '1.3rem' }}
             >
-              ayaz.dev
+              {profile.brand}
             </button>
             <p style={{ color: 'var(--muted)', fontSize: '0.8rem', marginTop: '0.4rem', maxWidth: 220 }}>
-              Building scalable solutions with Microsoft technologies.
+              {profile.title}
             </p>
           </div>
 
@@ -43,7 +44,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} Ayaz Khan — Crafted with <Heart size={11} style={{ display: 'inline', color: '#ec4899', verticalAlign: 'middle' }} /> and lots of coffee.</p>
+          <p>© {new Date().getFullYear()} {profile.name}. Crafted with <Heart size={11} style={{ display: 'inline', color: '#ec4899', verticalAlign: 'middle' }} /> and continuous learning.</p>
         </div>
       </div>
     </footer>

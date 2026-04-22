@@ -1,26 +1,19 @@
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { ArrowDown, GitBranch, Linkedin, Twitter, Sparkles, Download } from 'lucide-react'
+import { ArrowDown, GitBranch, Linkedin, Sparkles, Download, MapPin, Mail } from 'lucide-react'
 import { useEffect, useState, useRef } from 'react'
-
-const roles = [
-  'Full-Stack .NET Developer',
-  'D365 Developer',
-  'Power Platform Developer',
-  'Cloud Solutions Architect',
-  'Azure DevOps Engineer',
-]
+import { profile, roles, quickStats } from '../data/resumeData'
 
 const socials = [
-  { icon: GitBranch, href: 'https://github.com/AyazKhan20', label: 'GitHub' },
-  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-  { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
+  { icon: GitBranch, href: profile.github, label: 'GitHub' },
+  { icon: Linkedin, href: profile.linkedin, label: 'LinkedIn' },
+  { icon: Mail, href: `mailto:${profile.email}`, label: 'Email' },
 ]
 
 const floatingSnippets = [
-  { code: 'const future = await build()', x: '8%',  y: '20%', delay: 0 },
-  { code: '.NET Core 8.0 🚀',             x: '75%', y: '15%', delay: 0.5 },
-  { code: 'git push origin main',         x: '80%', y: '70%', delay: 1 },
-  { code: 'Azure.Deploy() ✓',             x: '5%',  y: '72%', delay: 1.5 },
+  { code: 'ASP.NET Core MVC', x: '8%', y: '20%', delay: 0 },
+  { code: 'MERN Stack Projects', x: '75%', y: '15%', delay: 0.5 },
+  { code: 'GitHub: AyazKhan20', x: '78%', y: '70%', delay: 1 },
+  { code: 'MCA 2024-2026', x: '5%', y: '72%', delay: 1.5 },
 ]
 
 export default function Hero() {
@@ -100,7 +93,7 @@ export default function Hero() {
           className="hero-badge glass"
         >
           <Sparkles size={11} style={{ color: '#a78bfa' }} />
-          <span>Open to opportunities</span>
+          <span>Open to entry-level software roles</span>
           <span className="dot" />
         </motion.div>
 
@@ -119,12 +112,12 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
           >
-            Ayaz Khan
+            {profile.name}
           </motion.span>
         </motion.h1>
 
         <div className="hero-role-wrap">
-          <span className="hero-role-prefix">I'm a </span>
+          <span className="hero-role-prefix">Focused on </span>
           <AnimatePresence mode="wait">
             <motion.span
               key={roleIndex}
@@ -145,8 +138,36 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.55 }}
         >
-          Passionate about building scalable .NET solutions, D365 customizations, and cloud-native apps on Azure. Turning complex business requirements into elegant digital experiences.
+          {profile.summary}
         </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.6 }}
+          style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', marginBottom: '1.75rem' }}
+        >
+          {quickStats.map((item) => (
+            <div key={item.label} className="glass" style={{ padding: '0.65rem 0.85rem', borderRadius: 999 }}>
+              <strong style={{ fontSize: '0.8rem', marginRight: '0.35rem' }}>{item.value}</strong>
+              <span style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>{item.label}</span>
+            </div>
+          ))}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.62 }}
+          style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', marginBottom: '2rem' }}
+        >
+          <span className="glass" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.76rem', padding: '0.5rem 0.8rem', borderRadius: 999 }}>
+            <MapPin size={12} /> {profile.location}
+          </span>
+          <a href={`mailto:${profile.email}`} className="glass" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.76rem', padding: '0.5rem 0.8rem', borderRadius: 999, textDecoration: 'none', color: 'var(--text)' }}>
+            <Mail size={12} /> {profile.email}
+          </a>
+        </motion.div>
 
         <motion.div
           className="hero-btns"
@@ -155,9 +176,9 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.65 }}
         >
           <button className="grad-btn hero-cta" onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>
-            <Sparkles size={14} /> View My Work
+            <Sparkles size={14} /> View Real Projects
           </button>
-          <a href="/resume.pdf" className="outline-btn hero-cta" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+          <a href={profile.resumeUrl} className="outline-btn hero-cta" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }} target="_blank" rel="noreferrer">
             <Download size={14} /> Download CV
           </a>
         </motion.div>
