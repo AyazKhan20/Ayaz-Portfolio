@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Moon, Sun } from 'lucide-react'
-import { profile } from '../data/resumeData'
 import { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 
@@ -31,10 +30,6 @@ export default function Navbar() {
       className={`nav-wrap ${scrolled ? 'scrolled' : ''}`}
     >
       <div className="nav-inner">
-        <button className="nav-logo gradient-text" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          {profile.brand}
-        </button>
-
         <div className="nav-links">
           {links.map(l => (
             <button key={l} className="nav-link" onClick={() => scrollTo(l)}>{l}</button>
