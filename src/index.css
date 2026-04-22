@@ -264,6 +264,41 @@ body {
   text-align: center;
   will-change: transform;
 }
+.hero-profile-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.55rem 0.85rem 0.55rem 0.55rem;
+  border-radius: 9999px;
+  margin-bottom: 1.1rem;
+}
+.hero-photo-frame {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(167, 139, 250, 0.45);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+.hero-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-profile-meta {
+  text-align: left;
+}
+.hero-profile-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+.hero-profile-role {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 0.18rem;
+}
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -374,6 +409,16 @@ body {
 
   .floating-snippet {
     display: none;
+  }
+
+  .hero-profile-card {
+    width: 100%;
+    justify-content: center;
+    border-radius: 18px;
+  }
+
+  .hero-profile-meta {
+    text-align: left;
   }
 }
 
