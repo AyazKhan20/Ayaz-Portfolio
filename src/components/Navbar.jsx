@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Moon, Sun } from 'lucide-react'
 import { profile } from '../data/resumeData'
+import { useContext } from 'react'
+import { ThemeContext } from '../context/ThemeContext'
 
 const links = ['About', 'Experience', 'Skills', 'Projects', 'Contact']
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const { isDark, toggleTheme } = useContext(ThemeContext)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -36,6 +39,9 @@ export default function Navbar() {
           {links.map(l => (
             <button key={l} className="nav-link" onClick={() => scrollTo(l)}>{l}</button>
           ))}
+          <button className="nav-theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
           <button className="nav-hire" onClick={() => scrollTo('Contact')}>Let's Connect</button>
         </div>
 

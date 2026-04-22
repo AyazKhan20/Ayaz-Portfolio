@@ -13,6 +13,26 @@
   --accent2: #06b6d4;
 }
 
+:root.dark-theme {
+  --bg: #050508;
+  --surface: #0a0a10;
+  --border: rgba(255,255,255,0.07);
+  --text: #f0f0f5;
+  --muted: #6b6b80;
+  --accent: #7c3aed;
+  --accent2: #06b6d4;
+}
+
+:root.light-theme {
+  --bg: #ffffff;
+  --surface: #f5f5f7;
+  --border: rgba(0,0,0,0.08);
+  --text: #1a1a1a;
+  --muted: #6b6b7f;
+  --accent: #7c3aed;
+  --accent2: #06b6d4;
+}
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -30,8 +50,12 @@ body {
 }
 
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: linear-gradient(#7c3aed, #06b6d4); border-radius: 2px; }
+
+:root.light-theme ::-webkit-scrollbar-thumb {
+  background: linear-gradient(#7c3aed, #06b6d4);
+}
 
 /* ── Reusable ── */
 .glass {
@@ -44,6 +68,13 @@ body {
 
 .gradient-text {
   background: linear-gradient(135deg, #a78bfa 0%, #06b6d4 50%, #f472b6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+:root.light-theme .gradient-text {
+  background: linear-gradient(135deg, #7c3aed 0%, #0891b2 50%, #db2777 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -164,6 +195,24 @@ body {
   font-family: 'Inter', sans-serif;
 }
 .nav-hire:hover { opacity: 0.85; box-shadow: 0 8px 24px rgba(124,58,237,0.3); }
+.nav-theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+.nav-theme-toggle:hover {
+  background: rgba(124,58,237,0.1);
+  border-color: rgba(124,58,237,0.3);
+}
 .nav-mobile-btn {
   display: none;
   background: none;

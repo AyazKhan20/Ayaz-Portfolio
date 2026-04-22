@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
+import { ThemeProvider } from './context/ThemeContext'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -39,7 +40,8 @@ export default function App() {
   }, [pointerX, pointerY])
 
   return (
-    <div className="app-shell">
+    <ThemeProvider>
+      <div className="app-shell">
       <motion.div className="mouse-spotlight mouse-spotlight-primary" style={{ x: spotlightX, y: spotlightY }} />
       <motion.div className="mouse-spotlight mouse-spotlight-secondary" style={{ x: trailingSpotlightX, y: trailingSpotlightY }} />
       <div className="noise" />
@@ -52,5 +54,6 @@ export default function App() {
       <Contact />
       <Footer />
     </div>
+    </ThemeProvider>
   )
 }
