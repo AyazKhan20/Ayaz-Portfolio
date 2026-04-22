@@ -87,21 +87,6 @@ export default function Hero() {
 
       <motion.div className="hero-content" style={{ x: contentX, y: contentY, rotateX, rotateY, transformStyle: 'preserve-3d' }}>
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="hero-profile-card glass"
-        >
-          <div className="hero-photo-frame">
-            <img src={profile.profileImage} alt={`${profile.name} profile`} className="hero-photo" loading="eager" />
-          </div>
-          <div className="hero-profile-meta">
-            <p className="hero-profile-name">{profile.name}</p>
-            <p className="hero-profile-role">{profile.title}</p>
-          </div>
-        </motion.div>
-
-        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}

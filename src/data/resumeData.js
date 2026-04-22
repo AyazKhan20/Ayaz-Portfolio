@@ -1,6 +1,4 @@
-const basePath = import.meta.env.BASE_URL
-const resumePath = `${basePath}resume.pdf`
-const profileImagePath = `${basePath}profile.jpg`
+const resumePath = `${import.meta.env.BASE_URL}resume.pdf`
 
 export const profile = {
   name: 'Ayazkhan Pathan',
@@ -13,7 +11,6 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/ayazkhan-pathan-43302b357/',
   github: 'https://github.com/AyazKhan20',
   resumeUrl: resumePath,
-  profileImage: profileImagePath,
   summary:
     'Motivated and technically sound MCA student with a solid foundation in software development and full-stack web technologies. I build scalable web apps with ASP.NET Core MVC and the MERN stack, and I enjoy solving practical user and business problems through clean code.',
 }
